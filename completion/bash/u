@@ -1,3 +1,4 @@
+# copy it to /etc/bash_completion.d/
 # copy this file into /usr/local/etc/bash_completion.d/
 
 _m_sub () {
