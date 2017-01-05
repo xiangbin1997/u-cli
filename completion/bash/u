@@ -193,7 +193,7 @@ _m_dock() {
 	COMPREPLY=( $( compgen -W "${choices[*]}" -- $cur  )  )
 }
 
-_m () {
+_u () {
 	local cur
 	local commands=(
 		help battery bluetooth dir disk dns dock finder firewall gatekeeper group hostname
@@ -268,4 +268,4 @@ _m () {
 }
 
 #complete -F _m m
-complete -o bashdefault -o default -F _m m
+complete -o bashdefault -o default -F _u u
