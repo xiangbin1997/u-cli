@@ -1,7 +1,7 @@
 #!/bin/sh
 
 PKG="u-cli"
-GIT_URL="https://github.com/ujnzxw/u-cli.git"
+GIT_URL="https://github.com/xiangbin1997/u-cli.git"
 INSTALL_DIR="${INSTALL_DIR}"
 
 
