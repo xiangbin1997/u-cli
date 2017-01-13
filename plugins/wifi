@@ -39,7 +39,10 @@ wifi_showpassword()
         ssid=`wifi_scan | grep SSID | awk '{print $2}'`
         passwd=$(_sudo_cmd grep psk= /etc/NetworkManager/system-connections/$ssid | awk -F = '{print $2}')
     else
-        passwd=`_sudo_cmd grep psk= /etc/NetworkManager/system-connections/$1`
+        #echo "1=<$1>"
+        # TODO: _sudo_cmd can not work for filename with spaces
+        #passwd=`_sudo_cmd grep psk= "/etc/NetworkManager/system-connections/$1"`
+        passwd=`sudo grep psk= "/etc/NetworkManager/system-connections/$1"`
     fi
     cat<<__EOF__
     SSID     : $ssid
