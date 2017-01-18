@@ -1,4 +1,3 @@
-# copy it to /etc/bash_completion.d/
 # copy this file into /usr/local/etc/bash_completion.d/
 
 _m_sub () {
@@ -126,6 +125,55 @@ _m_dir() {
 	COMPREPLY=( $( compgen -W "${choices[*]}" -- $cur  )  )
 }
 
+### chris
+_zaso()
+{
+    local dir="$1"
+
+    pushd "$dir" >/dev/null
+    find * -maxdepth 0 2>/dev/null
+    popd >/dev/null
+}
+
+_comp_with_find()
+{
+    #local cur
+    local dir      
+    local IFS
+
+    #cur="$1"
+    dir="$2"
+
+    OLDIFS=$IFS
+    IFS=$'\n'
+
+    compopt -o filenames 2>/dev/null
+    COMPREPLY=( $( compgen -W "$(_zaso "$dir")" -- "$cur" ) );
+
+    IFS=$OLDIFS
+}
+
+_m_wifi() {
+        local prev="$1"
+        local choices=()
+
+        case "$prev" in
+                showpassword)
+                        DIR="/etc/NetworkManager/system-connections/"
+                        _comp_with_find "$prev" "$DIR"
+
+                        ##OLDIFS=$IFS
+                        ##IFS=$'\n'
+                        ##DIR="/etc/NetworkManager/system-connections/"
+                        ##choices=($(find $DIR -type f -printf "%f\n"))
+                        ##IFS=$OLDIFS
+
+                        #choices=(/etc/NetworkManager/system-connections/*)
+                        ;;
+        esac
+        #COMPREPLY=( $( compgen -W "${choices[*]}" -- $cur  )  )
+}
+
 _m_disk() {
 	local prev="$1"
 	local sub="$2"
@@ -217,6 +265,9 @@ _u () {
 			cmd=${COMP_WORDS[1]}
 			sub=${COMP_WORDS[2]}
 			case "$cmd" in
+				wifi)
+					_m_wifi "$prev" "$sub"
+					;;
 				dir)
 					_m_dir "$prev"
 					;;
